@@ -605,6 +605,9 @@ int32_t doPidCalculations(struct fastPID* pidnow, int actual, int target)
 void loadEEpromSettings()
 {
     read_flash_bin(eepromBuffer.buffer, eeprom_address, sizeof(eepromBuffer.buffer));
+    if (eepromBuffer.motor_poles < 2 || eepromBuffer.motor_poles > 64) {
+        eepromBuffer.motor_poles = 14;
+    }
     if(eepromBuffer.eeprom_version < 3){ // eeprom versions less than 3 had a firmware name string in these bytes 
       eepromBuffer.max_ramp = 160;    // 0.1% per ms to 25% per ms 
       eepromBuffer.minimum_duty_cycle = 1; // 0.2% to 51 percent
@@ -789,8 +792,8 @@ void loadEEpromSettings()
         if (motor_kv < 300) {
             low_rpm_throttle_limit = 0;
         }
-        low_rpm_level = motor_kv / 100 / (32 / eepromBuffer.motor_poles);
-        high_rpm_level = motor_kv / 12 / (32 / eepromBuffer.motor_poles);				
+        low_rpm_level = ((uint32_t)motor_kv * eepromBuffer.motor_poles) / 3200;
+        high_rpm_level = ((uint32_t)motor_kv * eepromBuffer.motor_poles) / 384;
     }
     reverse_speed_threshold = map(motor_kv, 300, 3000, 1000, 500);
     if (eepromBuffer.bi_direction){
