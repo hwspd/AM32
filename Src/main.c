@@ -2124,6 +2124,12 @@ if(zero_crosses < 5){
             converted_degrees = ((int32_t)(357.5581395348837f * (1 << 16)) - ADC_raw_temp * (int32_t)(0.18736373546511628f * (1 << 16))) >> 16;
             adc_software_trigger_enable(ADC_REGULAR_CHANNEL);
 #endif
+#ifdef MCU_GDF350
+            ADC_DMA_Callback();
+            // converted_degrees = (1.45 - ADC_raw_temp * 3.3 / 4096) * 1000 / 4.3 + 25;
+            converted_degrees = ((int32_t)(362.2093023255814f * (1 << 16)) - ADC_raw_temp * (int32_t)(0.18736373546511628f * (1 << 16))) >> 16;
+            adc_software_trigger_enable(ADC_REGULAR_CHANNEL);
+#endif
 #ifdef ARTERY
             ADC_DMA_Callback();
             adc_ordinary_software_trigger_enable(ADC1, TRUE);

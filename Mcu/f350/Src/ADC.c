@@ -86,7 +86,7 @@ void ADC_Init(void)
     /* ADC regular channel config */
     adc_regular_channel_config(0, VOLTAGE_ADC_CHANNEL, ADC_SAMPLETIME_55POINT5);
     adc_regular_channel_config(1, CURRENT_ADC_CHANNEL, ADC_SAMPLETIME_55POINT5);
-    adc_regular_channel_config(2, ADC_CHANNEL_16, ADC_SAMPLETIME_55POINT5);
+    adc_regular_channel_config(2, ADC_CHANNEL_16, ADC_SAMPLETIME_239POINT5);
 
     /* ADC trigger config */
     adc_external_trigger_source_config(ADC_REGULAR_CHANNEL,
