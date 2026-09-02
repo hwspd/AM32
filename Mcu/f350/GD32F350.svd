@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<device schemaVersion="1.1"
+xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"
+xs:noNamespaceSchemaLocation="CMSIS-SVD_Schema_1_1.xsd">
+  <name>GD32F350</name>
+  <version>1.0</version>
+  <description>GD32F350 ARM 32-bit Cortex-M4 Microcontroller based device</description>
+  <cpu>
+  <name>CM4</name>
+  <revision>r0p1</revision>
+  <endian>little</endian>
+  <mpuPresent>1</mpuPresent>
+  <fpuPresent>1</fpuPresent>
+  <nvicPrioBits>4</nvicPrioBits>
+  <vendorSystickConfig>0</vendorSystickConfig>
+  </cpu>
+  <addressUnitBits>8</addressUnitBits>
+  <width>32</width>
+  <!--Register Default Properties-->
+  <size>0x20</size>
+  <resetValue>0x0</resetValue>
+  <resetMask>0xFFFFFFFF</resetMask>
+   <peripherals>
+    <peripheral>
+      <name>ADC</name>
+      <description>Analog to digital converter</description>
+      <groupName>ADC</groupName>
+      <baseAddress>0x40012400</baseAddress>
+    </peripheral>
+    <peripheral>
+      <name>GPIOA</name>
+      <description>General purpose I/O A</description>
+      <groupName>GPIO</groupName>
+      <baseAddress>0x48000000</baseAddress>
+    </peripheral>
+    <peripheral>
+      <name>GPIOB</name>
+      <description>General purpose I/O B</description>
+      <groupName>GPIO</groupName>
+      <baseAddress>0x48000400</baseAddress>
+    </peripheral>
+    <peripheral>
+      <name>TIMER0</name>
+      <description>Advanced timer</description>
+      <groupName>TIMER</groupName>
+      <baseAddress>0x40012C00</baseAddress>
+    </peripheral>
+   </peripherals>
+</device>
