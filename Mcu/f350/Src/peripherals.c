@@ -190,17 +190,17 @@ void TIM0_Init(void)
     /*configure PB13/PB14/PB15(TIMER0/CH0N/CH1N/CH2N) as alternate function*/
     gpio_mode_set(PHASE_A_GPIO_PORT_HIGH, GPIO_MODE_AF, GPIO_PUPD_NONE,
         PHASE_A_GPIO_HIGH);
-    gpio_output_options_set(GPIOB, GPIO_OTYPE_PP, GPIO_OSPEED_50MHZ,
+    gpio_output_options_set(PHASE_A_GPIO_PORT_HIGH, GPIO_OTYPE_PP, GPIO_OSPEED_50MHZ,
         PHASE_A_GPIO_HIGH);
 
     gpio_mode_set(PHASE_B_GPIO_PORT_HIGH, GPIO_MODE_AF, GPIO_PUPD_NONE,
         PHASE_B_GPIO_HIGH);
-    gpio_output_options_set(GPIOB, GPIO_OTYPE_PP, GPIO_OSPEED_50MHZ,
+    gpio_output_options_set(PHASE_B_GPIO_PORT_HIGH, GPIO_OTYPE_PP, GPIO_OSPEED_50MHZ,
         PHASE_B_GPIO_HIGH);
 
     gpio_mode_set(PHASE_C_GPIO_PORT_HIGH, GPIO_MODE_AF, GPIO_PUPD_NONE,
         PHASE_C_GPIO_HIGH);
-    gpio_output_options_set(GPIOB, GPIO_OTYPE_PP, GPIO_OSPEED_50MHZ,
+    gpio_output_options_set(PHASE_C_GPIO_PORT_HIGH, GPIO_OTYPE_PP, GPIO_OSPEED_50MHZ,
         PHASE_C_GPIO_HIGH);
 
     gpio_af_set(PHASE_A_GPIO_PORT_HIGH, GPIO_AF_2, PHASE_A_GPIO_HIGH);
