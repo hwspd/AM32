@@ -9,7 +9,7 @@
 /* memory map */
 MEMORY
 {
-  FLASH     (rx)  : ORIGIN = 0x08001000, LENGTH = 58K
+  FLASH     (rx)  : ORIGIN = 0x08001000, LENGTH = 0xE7E0
   EEPROM    (rx)  : ORIGIN = 0x0800F800, LENGTH = 2K
   FILE_NAME (rx)  : ORIGIN = ORIGIN(EEPROM) - 32, LENGTH = 32
   RAM       (xrw) : ORIGIN = 0x20000000, LENGTH = 8K
