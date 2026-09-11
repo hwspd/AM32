@@ -536,7 +536,9 @@
 #define FILE_NAME "REF_F350"
 #define DEAD_TIME 60
 #define HARDWARE_GROUP_GD_F350_A
-#define PA6_VOLTAGE
+#define TARGET_VOLTAGE_DIVIDER 210 // PA3, 21:1 divider
+#define CURRENT_OFFSET 1638        // PA6 current-sense offset in mV
+#define MILLIVOLT_PER_AMP 50
 #define USE_SERIAL_TELEMETRY
 #endif
 
