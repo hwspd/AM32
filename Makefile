@@ -67,7 +67,7 @@ has_can_suffix = $(findstring _CAN,$1)
 # find the SVD files
 $(foreach MCU,$(MCU_TYPES),$(eval SVD_$(MCU) := $(wildcard $(HAL_FOLDER_$(MCU))/*.svd)))
 
-.PHONY : clean all binary $(foreach MCU,$(MCU_TYPES),$(call lc,$(MCU)))
+.PHONY : clean all binary f350-standalone $(foreach MCU,$(MCU_TYPES),$(call lc,$(MCU)))
 ALL_TARGETS := $(foreach MCU,$(MCU_TYPES),$(TARGETS_$(MCU)))
 all : $(ALL_TARGETS)
 
@@ -80,6 +80,12 @@ $(foreach MCU,$(MCU_TYPES),$(eval $(call CREATE_TARGET,$(MCU))))
 clean :
 	@echo Removing $(OBJ) directory
 	@$(RM) -rf $(OBJ)
+	@$(RM) -rf obj-standalone
+
+f350-standalone:
+	$(MAKE) REF_F350 F350_STANDALONE=1 OBJ=obj-standalone
+	$(QUIET)$(CP) -f obj-standalone$(DSEP)AM32_REF_F350_$(FIRMWARE_VERSION).bin obj-standalone$(DSEP)AM32_REF_F350_$(FIRMWARE_VERSION)_STANDALONE.bin
+	$(QUIET)$(CP) -f obj-standalone$(DSEP)AM32_REF_F350_$(FIRMWARE_VERSION).hex obj-standalone$(DSEP)AM32_REF_F350_$(FIRMWARE_VERSION)_STANDALONE.hex
 
 #####################
 # main firmware build
@@ -132,4 +138,3 @@ include $(ROOT)/make/tools_install.mk
 targets:
 	$(QUIET)echo List of targets. To build a target use 'make TARGETNAME'
 	$(QUIET)echo $(ALL_TARGETS)
-

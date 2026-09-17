@@ -1,4 +1,5 @@
 obj/
+obj-standalone/
 downloads/
 tools/
 .vscode

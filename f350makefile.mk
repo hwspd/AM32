@@ -6,7 +6,11 @@ TARGETS_$(MCU) := $(call get_targets,$(MCU))
 HAL_FOLDER_$(MCU) := $(HAL_FOLDER)/$(call lc,$(MCU))
 
 MCU_$(MCU) := -mcpu=cortex-m4 -mthumb
-LDSCRIPT_$(MCU) := $(wildcard $(HAL_FOLDER_$(MCU))/*.ld)
+ifeq ($(F350_STANDALONE),1)
+LDSCRIPT_$(MCU) := $(HAL_FOLDER_$(MCU))/gd32f350x8_standalone.ld
+else
+LDSCRIPT_$(MCU) := $(HAL_FOLDER_$(MCU))/gd32f350x8_flash.ld
+endif
 
 SRC_BASE_DIR_$(MCU) := \
 	$(HAL_FOLDER_$(MCU))/Drivers/GD32F3x0_standard_peripheral/Source \
@@ -25,6 +29,10 @@ CFLAGS_$(MCU) += \
 	-DGD32$(MCU) \
 	-D$(PART) \
 	-DUSE_STDPERIPH_DRIVER
+
+ifeq ($(F350_STANDALONE),1)
+CFLAGS_$(MCU) += -DVECT_TAB_OFFSET=0
+endif
 
 
 SRC_$(MCU) := $(foreach dir,$(SRC_DIR_$(MCU)),$(wildcard $(dir)/*.[cs]))
