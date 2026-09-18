@@ -4667,9 +4667,9 @@
 #define PHASE_C_GPIO_HIGH GPIO_PIN_8
 #define PHASE_C_GPIO_PORT_HIGH GPIOA
 
-#define PHASE_A_COMP 0x61 // CMP_PA0
+#define PHASE_A_COMP 0x51 // CMP_PA5
 #define PHASE_B_COMP 0x41 // CMP_PA4
-#define PHASE_C_COMP 0x51 // CMP_PA5
+#define PHASE_C_COMP 0x61 // CMP_PA0
 
 #endif
 
