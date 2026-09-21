@@ -32,5 +32,11 @@ Use `Am32.sct` for a Keil bootloader-layout build. Use
 `Am32_standalone.sct` and define `VECT_TAB_OFFSET=0` for a Keil standalone
 build.
 
+`Keil_Projects/Am32f350.uvprojx` provides the standalone configuration for the
+64 KiB flash, 8 KiB SRAM `GD32F350K8`. It requires the
+`GigaDevice.GD32F3x0_DFP.3.4.0` device pack and Arm Compiler 6.12.
+The vector offset override belongs to this target; the source default remains
+`0x1000` for normal bootloader-layout builds.
+
 Always select the programmer device matching the exact MCU marking and verify
 that the ESC pinout matches `REF_F350` before applying power to the motor stage.
