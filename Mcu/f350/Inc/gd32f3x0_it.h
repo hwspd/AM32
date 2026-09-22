@@ -2,12 +2,11 @@
     \file    gd32f3x0_it.h
     \brief   the header file of the ISR
 
-    \version 2019-02-19, V1.0.0, firmware for GD32E23x
-    \version 2020-12-12, V1.1.0, firmware for GD32E23x
+    \version 2026-01-01, V2.6.0, firmware for GD32F3x0
 */
 
 /*
-    Copyright (c) 2020, GigaDevice Semiconductor Inc.
+    Copyright (c) 2026, GigaDevice Semiconductor Inc.
 
     Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
