@@ -25,10 +25,16 @@
  */
 /* This file refers the CMSIS standard, some adjustments are made according to GigaDevice chips */
 
+/* AM32: default to the 4 KiB bootloader layout. Standalone builds set
+   __app_start=0x08000000 with --defsym before loading this script. */
+__app_start = DEFINED(__app_start) ? __app_start : 0x08001000;
+
 /* memory map */
 MEMORY
 {
-  FLASH (rx)      : ORIGIN = 0x08000000, LENGTH = 64K
+  FLASH (rx)      : ORIGIN = __app_start, LENGTH = 0x0800F7E0 - __app_start
+  FILE_NAME (rx)  : ORIGIN = 0x0800F7E0, LENGTH = 32
+  EEPROM (rw)     : ORIGIN = 0x0800F800, LENGTH = 2K
   RAM (xrw)       : ORIGIN = 0x20000000, LENGTH = 8K
 }
 
@@ -116,6 +122,13 @@ SECTIONS
     KEEP (*(SORT(.fini_array.*)))
     PROVIDE_HIDDEN (__fini_array_end = .);
   } >FLASH
+
+  .file_name :
+  {
+    . = ALIGN(4);
+    KEEP(*(.file_name))
+    . = ALIGN(4);
+  } > FILE_NAME
 
   /* provide some necessary symbols for initialized data */
   _sidata = LOADADDR(.data);

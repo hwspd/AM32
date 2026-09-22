@@ -24,7 +24,7 @@ include $(ROOT)/make/tools.mk
 
 # supported MCU types
 
-MCU_TYPES := E230 F031 F051 F415 F421 G071 L431 G431 V203 G031 A153 F350
+MCU_TYPES := E230 E235 F031 F051 F415 F421 G071 L431 G431 V203 G031 A153 F350
 
 MCU_TYPE := NONE
 
@@ -67,7 +67,7 @@ has_can_suffix = $(findstring _CAN,$1)
 # find the SVD files
 $(foreach MCU,$(MCU_TYPES),$(eval SVD_$(MCU) := $(wildcard $(HAL_FOLDER_$(MCU))/*.svd)))
 
-.PHONY : clean all binary f350-standalone $(foreach MCU,$(MCU_TYPES),$(call lc,$(MCU)))
+.PHONY : clean all binary f350-standalone e235-standalone $(foreach MCU,$(MCU_TYPES),$(call lc,$(MCU)))
 ALL_TARGETS := $(foreach MCU,$(MCU_TYPES),$(TARGETS_$(MCU)))
 all : $(ALL_TARGETS)
 
@@ -81,6 +81,11 @@ clean :
 	@echo Removing $(OBJ) directory
 	@$(RM) -rf $(OBJ)
 	@$(RM) -rf obj-standalone
+
+e235-standalone:
+	$(MAKE) REF_E235 E235_STANDALONE=1 OBJ=obj-standalone
+	$(QUIET)$(CP) -f obj-standalone$(DSEP)AM32_REF_E235_$(FIRMWARE_VERSION).bin obj-standalone$(DSEP)AM32_REF_E235_$(FIRMWARE_VERSION)_STANDALONE.bin
+	$(QUIET)$(CP) -f obj-standalone$(DSEP)AM32_REF_E235_$(FIRMWARE_VERSION).hex obj-standalone$(DSEP)AM32_REF_E235_$(FIRMWARE_VERSION)_STANDALONE.hex
 
 f350-standalone:
 	$(MAKE) REF_F350 F350_STANDALONE=1 OBJ=obj-standalone
@@ -129,6 +134,9 @@ $$($(2)_BASENAME).elf: $(SRC_COMMON) $$(SRC_$(1)) $(xSRC)
 	$(QUIET)$(CP) -f Mcu$(DSEP)$(call lc,$(1))$(DSEP)openocd.cfg $(OBJ)$(DSEP)openocd.cfg > $(NUL)
 endef
 $(foreach MCU,$(MCU_TYPES),$(foreach TARGET,$(TARGETS_$(MCU)), $(eval $(call CREATE_BUILD_TARGET,$(MCU),$(TARGET)))))
+
+# Re-link E235 images when their build configuration or memory map changes.
+$(foreach TARGET,$(TARGETS_E235),$(eval $($(TARGET)_BASENAME).elf: Makefile e235makefile.mk $(LDSCRIPT_E235)))
 
 # include the targets for installing tools
 include $(ROOT)/make/tools_install.mk
